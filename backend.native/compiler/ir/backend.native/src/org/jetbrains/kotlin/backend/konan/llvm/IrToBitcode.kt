@@ -87,7 +87,7 @@ internal fun emitLLVM(context: Context) {
     }
 
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    var devirtualizationAnalysisResult: Map<DataFlowIR.Node.VirtualCall, Devirtualization.DevirtualizedCallSite>? = null
+    var devirtualizationAnalysisResult: Devirtualization.AnalysisResult? = null
     phaser.phase(KonanPhase.DEVIRTUALIZATION) {
         devirtualizationAnalysisResult = Devirtualization.run(irModule, context, moduleDFG!!, externalModulesDFG!!)
 
