@@ -26,6 +26,7 @@
 #import <Foundation/NSMethodSignature.h>
 #import <Foundation/NSError.h>
 #import <Foundation/NSException.h>
+#import <Foundation/NSDecimalNumber.h>
 #import <Foundation/NSDictionary.h>
 #import <objc/runtime.h>
 #import <objc/objc-exception.h>
@@ -417,7 +418,11 @@ static Class __NSCFBooleanClass = nullptr;
     case 'i': RETURN_RESULT_OF(Kotlin_boxInt, self.intValue);
     case 'q': RETURN_RESULT_OF(Kotlin_boxLong, self.longLongValue);
     case 'f': RETURN_RESULT_OF(Kotlin_boxFloat, self.floatValue);
-    case 'd': RETURN_RESULT_OF(Kotlin_boxDouble, self.doubleValue);
+    case 'd': if ([self isKindOfClass:[NSDecimalNumber class]]) {
+      return [super toKotlin:OBJ_RESULT];
+    } else {
+      RETURN_RESULT_OF(Kotlin_boxDouble, self.doubleValue);
+    }
 
     default:  return [super toKotlin:OBJ_RESULT];
   }
