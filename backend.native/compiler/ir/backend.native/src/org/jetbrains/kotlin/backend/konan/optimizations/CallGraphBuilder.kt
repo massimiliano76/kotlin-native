@@ -58,7 +58,7 @@ internal class CallGraph(val directEdges: Map<DataFlowIR.FunctionSymbol, CallGra
 internal class CallGraphBuilder(val context: Context,
                                 val moduleDFG: ModuleDFG,
                                 val externalModulesDFG: ExternalModulesDFG,
-                                devirtualizedAnalysisResult: Devirtualization.AnalysisResult?,
+                                devirtualizationAnalysisResult: Devirtualization.AnalysisResult?,
                                 val gotoExternal: Boolean) {
 
     private val DEBUG = 0
@@ -67,7 +67,7 @@ internal class CallGraphBuilder(val context: Context,
         if (DEBUG > severity) block()
     }
 
-    private val devirtualizedCallSites = devirtualizedAnalysisResult?.devirtualizedCallSites
+    private val devirtualizedCallSites = devirtualizationAnalysisResult?.devirtualizedCallSites
 
     private fun DataFlowIR.FunctionSymbol.resolved(): DataFlowIR.FunctionSymbol {
         if (this is DataFlowIR.FunctionSymbol.External)
